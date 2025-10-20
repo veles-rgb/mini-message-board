@@ -1,43 +1,91 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: white;
+    color: black;
 }
 
 #home-title {
     text-align: center;
 }
 
-.link-btn {
-    display: flex;
+.link-btn,
+input[type="submit"] {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 6rem;
+    white-space: nowrap;
+    text-align: center;
+    width: auto;
     height: 2rem;
-    border: 2px solid black;
+    padding: 1rem;
+    border: 2px solid #000;
+    background: #fff;
+    color: #000;
     text-decoration: none;
-    color: black;
-    margin-bottom: 1rem;
+    font: inherit;
 }
+
+input[type="submit"] {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    box-shadow: none;
+    line-height: normal;
+    vertical-align: middle;
+    font: inherit;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    height: 2.5rem;
+}
+
 
 #messages-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    width: 100%;
+    margin: 1rem;
 }
 
 .message-item {
     display: flex;
     flex-direction: column;
-    border: 2px solid red;
+    border: 2px solid black;
     padding: 1rem;
+    width: 50%;
+    background-color: rgba(252, 185, 61, 0.75);
+    margin: 1rem;
+}
+
+.msg-div {
+    padding: 0.5rem;
 }
 
 .msg-txt {
-    background-color: rgba(128, 128, 128, 0.455);
+    background-color: rgba(255, 0, 0, 0.277);
+    padding: 1rem;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.msg-user {
+    font-weight: bold;
+}
+
+.msg-user,
+.msg-date {
+    padding: 0.1rem;
+    margin: 0.1rem;
 }
 
 form {
@@ -51,4 +99,8 @@ form {
 textarea {
     width: 40rem;
     height: 5rem;
+}
+
+input[type="text"] {
+    height: 2rem;
 }
