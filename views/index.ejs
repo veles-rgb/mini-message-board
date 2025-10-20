@@ -9,16 +9,20 @@
     <div id="messages-container">
         <% messages.forEach((message)=> { %>
             <div class="message-item">
-                <p class="msg-txt">
-                    <%= message.text %>
-                </p>
+                <div class="msg-div">
+                    <p class="msg-txt">
+                        <%= message.text %>
+                    </p>
+                </div>
                 <p class="msg-user">
                     User:
                     <%= message.user %>
                 </p>
                 <p class="msg-date">
+                    Posted:
                     <%= message.added %>
                 </p>
+                <a class="link-btn" href="/messages/<%= message.id %>">View Message</a>
             </div>
             <% }) %>
     </div>
