@@ -1,0 +1,22 @@
+<head>
+    <title>Mini Message Board</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <% const targetMessage=messages.find(message=> message.id === id) %>
+        <div class="message-item">
+            <p class="msg-txt">
+                <%= targetMessage.text%>
+            </p>
+            <p class="msg-user">
+                User:
+                <%= targetMessage.user %>
+            </p>
+            <p class="msg-date">
+                Posted:
+                <%= targetMessage.added %>
+            </p>
+        </div>
+        <a class="link-btn" href="/">Return</a>
+</body>
