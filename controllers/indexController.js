@@ -26,10 +26,6 @@ function renderForm(req, res) {
 }
 
 async function postNewMessage(req, res) {
-    console.log('Server saw lengths:', {
-        newUser: (req.body.newUser || '').length,
-        newMsg: (req.body.newMsg || '').length,
-    });
     const { validationResult } = require("express-validator");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
