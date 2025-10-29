@@ -1,15 +1,17 @@
 const { Router } = require("express");
 const indexRouter = Router();
 
-const messages = require("../routes/messages");
+const indexController = require("../controllers/indexController");
+const { validateForm } = require("../validators/formValidator");
 
-indexRouter.get("/", (req, res) => {
-    res.render("index", { messages: messages });
-});
+// GET
+indexRouter.get("/", indexController.getAllMessages);
 
-indexRouter.get("/messages/:id", (req, res) => {
-    const id = req.params.id;
-    res.render("message", { id: Number(id), messages: messages });
-});
+indexRouter.get("/messages/:id", indexController.getMessageFromId);
+
+indexRouter.get("/new", indexController.renderForm);
+
+// POST
+indexRouter.post("/new", validateForm, indexController.postNewMessage);
 
 module.exports = indexRouter;

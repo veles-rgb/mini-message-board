@@ -1,22 +1,31 @@
 <head>
-    <title>Mini Message Board</title>
+    <title>
+        <%= title %>
+    </title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 
-<body>
-    <% const targetMessage=messages.find(message=> message.id === id) %>
-        <div class="message-item">
-            <p class="msg-txt">
-                <%= targetMessage.text%>
-            </p>
-            <p class="msg-user">
-                User:
-                <%= targetMessage.user %>
-            </p>
-            <p class="msg-date">
-                Posted:
-                <%= targetMessage.added %>
-            </p>
+<body class="view-page">
+    <header class="header">
+        <h1 class="page-title">Message Details</h1>
+        <a class="btn btn-back" href="/">← Back</a>
+    </header>
+
+    <main class="message-view-container">
+        <div class="message-card">
+            <div class="message-header">
+                <p class="msg-user">👤 <strong>
+                        <%= result.username %>
+                    </strong></p>
+                <p class="msg-date">🕒 <%= new Date(result.created_at).toLocaleString() %>
+                </p>
+            </div>
+
+            <div class="message-body">
+                <p class="msg-text">
+                    <%= result.message %>
+                </p>
+            </div>
         </div>
-        <a class="link-btn" href="/">Return</a>
+    </main>
 </body>

@@ -1,106 +1,398 @@
-*,
-*::before,
-*::after {
+:root {
+    --bg: #0f1115;
+    --bg-soft: #131720;
+    --panel: #171b24;
+    --panel-2: #1e2430;
+    --ink: #e6eaf2;
+    --ink-dim: #aab3c5;
+    --accent: #28a745;
+    --accent-2: #23c4c4;
+    --warn: #ff6b6b;
+    --ring: rgba(40, 167, 69, 0.35);
+    --muted: #2a3140;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --radius: 14px;
+    --radius-sm: 10px;
+    --radius-xs: 8px;
+    --space: clamp(14px, 2.2vw, 22px);
+    --space-sm: clamp(8px, 1.3vw, 14px);
+    --space-lg: clamp(22px, 3vw, 34px);
+    --max: 800px;
+}
+
+* {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
+    margin: 0;
+    color: var(--ink);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0) 30%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 24px),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 24px),
+        var(--bg);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Inter", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    line-height: 1.35;
+}
+
+/* Utility */
+.container {
+    width: min(100%, var(--max));
+    margin-inline: auto;
+    padding: var(--space);
+}
+
+.stack {
+    display: grid;
+    gap: var(--space);
+}
+
+.row {
     display: flex;
-    flex-direction: column;
+    gap: var(--space-sm);
     align-items: center;
-    justify-content: center;
-    background-color: white;
-    color: black;
 }
 
-#home-title {
-    text-align: center;
+.left {
+    text-align: left;
 }
 
-.link-btn,
-input[type="submit"] {
+.right {
+    margin-left: auto;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: saturate(120%) blur(6px);
+    background: color-mix(in oklab, var(--bg-soft) 80%, transparent);
+    border-bottom: 1px solid var(--muted);
+}
+
+.header-inner {
+    width: min(100%, var(--max));
+    margin-inline: auto;
+    padding: var(--space-sm) var(--space);
+    display: flex;
+    align-items: center;
+    gap: var(--space);
+}
+
+.page-title {
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    font-size: clamp(18px, 2.4vw, 28px);
+    background: white;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0.001);
+}
+
+/* Buttons */
+.btn {
+    --btn-bg: var(--panel);
+    --btn-ink: var(--ink);
+    --btn-bd: var(--muted);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap;
-    text-align: center;
-    width: auto;
-    height: 2rem;
-    padding: 1rem;
-    border: 2px solid #000;
-    background: #fff;
-    color: #000;
+    gap: 8px;
+    padding: 10px 14px;
+    font-weight: 700;
+    letter-spacing: .15px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--btn-bd);
+    background: linear-gradient(180deg, var(--btn-bg), color-mix(in oklab, var(--btn-bg) 80%, #000));
+    color: var(--btn-ink);
     text-decoration: none;
-    font: inherit;
+    transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
-input[type="submit"] {
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 0;
-    box-shadow: none;
-    line-height: normal;
-    vertical-align: middle;
-    font: inherit;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    height: 2.5rem;
+.btn:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in oklab, var(--btn-bd) 70%, var(--accent));
 }
 
+.btn:active {
+    transform: translateY(0);
+}
 
-#messages-container {
+.btn-new,
+.btn-submit {
+    --btn-bg: color-mix(in oklab, var(--accent) 24%, #0b0f14);
+    --btn-bd: color-mix(in oklab, var(--accent) 35%, var(--muted));
+    box-shadow: 0 6px 24px rgba(40, 167, 69, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.btn-new:hover,
+.btn-submit:hover {
+    box-shadow: 0 8px 28px rgba(40, 167, 69, 0.22);
+}
+
+.btn-view,
+.btn-back,
+.btn-cancel {
+    --btn-bg: var(--panel-2);
+    --btn-bd: var(--muted);
+}
+
+/* Cards */
+.card {
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border: 1px solid var(--muted);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* Index Page */
+body.index-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 1rem;
+    min-height: 100vh;
 }
 
-.message-item {
-    display: flex;
-    flex-direction: column;
-    border: 2px solid black;
-    padding: 1rem;
-    width: 50%;
-    background-color: rgba(252, 185, 61, 0.75);
-    margin: 1rem;
+.messages-section {
+    flex: 1;
 }
 
-.msg-div {
-    padding: 0.5rem;
+.messages-container {
+    width: min(100%, var(--max));
+    margin-inline: auto;
+    padding: var(--space);
+    display: grid;
+    gap: var(--space);
 }
 
-.msg-txt {
-    background-color: rgba(255, 0, 0, 0.277);
-    padding: 1rem;
-    color: black;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+.index-page .message-card {
+    composes: card;
+    /* for editors that support it */
+}
+
+.index-page .message-card {
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border-radius: var(--radius);
+    border: 1px solid var(--muted);
+    padding: var(--space);
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.index-page .message-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: var(--space-sm);
+    color: var(--ink-dim);
+    font-size: clamp(12px, 1.4vw, 14px);
 }
 
 .msg-user {
-    font-weight: bold;
+    margin: 0;
 }
 
-.msg-user,
+.msg-user strong {
+    color: var(--ink);
+    font-weight: 800;
+}
+
 .msg-date {
-    padding: 0.1rem;
-    margin: 0.1rem;
+    margin: 0;
+    color: var(--ink-dim);
+    opacity: 0.85;
 }
 
-form {
+.index-page .message-body {
+    padding: 10px 12px;
+    background: color-mix(in oklab, var(--panel-2) 82%, transparent);
+    border: 1px dashed color-mix(in oklab, var(--muted) 70%, #000);
+    border-radius: var(--radius-sm);
+}
+
+.index-page .msg-text {
+    margin: 0;
+    font-size: clamp(14px, 1.7vw, 16px);
+    line-height: 1.6;
+    color: var(--ink);
+    white-space: pre-line;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
+.message-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Empty State */
+.no-messages {
+    width: min(100%, var(--max));
+    margin: var(--space-lg) auto;
+    padding: var(--space);
+    text-align: center;
+    color: var(--ink-dim);
+    border: 1px dashed var(--muted);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+}
+
+/* View Message Page */
+body.view-page {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.message-view-container {
+    flex: 1;
+    display: grid;
+    place-items: start center;
+    padding: var(--space-lg) var(--space);
+}
+
+.view-page .message-card {
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border: 1px solid var(--muted);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: min(100%, var(--max));
+    padding: calc(var(--space) + 4px);
+    display: grid;
+    gap: var(--space);
+}
+
+.view-page .message-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-sm);
+    align-items: end;
+    color: var(--ink-dim);
+}
+
+.view-page .message-body {
+    border-top: 1px solid var(--muted);
+    padding-top: var(--space-sm);
+}
+
+.view-page .msg-text {
+    margin: 0;
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.65;
+    color: var(--ink);
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+/* Form Page */
+body.form-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: var(--space);
+}
+
+.form-wrapper {
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border: 1px solid var(--muted);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: min(100%, 560px);
+    padding: var(--space-lg);
+}
+
+.form-title {
+    margin: 0 0 var(--space);
+    font-size: clamp(20px, 2.6vw, 30px);
+    font-weight: 800;
+    letter-spacing: .2px;
+    color: var(--ink);
+}
+
+.form-group {
+    display: grid;
+    gap: 8px;
+    margin-bottom: var(--space);
+}
+
+.form-label {
+    font-weight: 700;
+    color: var(--ink-dim);
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    background: var(--bg-soft);
+    color: var(--ink);
+    border: 1px solid var(--muted);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 15px;
+    transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: color-mix(in oklab, var(--ink-dim) 70%, #000);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--ring);
+    background: color-mix(in oklab, var(--bg-soft) 86%, black);
+}
+
+.form-textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    gap: 1rem;
 }
 
-textarea {
-    width: 40rem;
-    height: 5rem;
+.error-container {
+    background: color-mix(in oklab, var(--warn) 12%, var(--panel));
+    border: 1px solid color-mix(in oklab, var(--warn) 45%, var(--muted));
+    color: color-mix(in oklab, white 85%, var(--warn));
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
 }
 
-input[type="text"] {
-    height: 2rem;
+.error-list {
+    margin: 0;
+    padding-left: 1rem;
+}
+
+/* Links */
+a {
+    color: var(--accent-2);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }

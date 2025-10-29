@@ -1,29 +1,42 @@
 <head>
-    <title>Mini Message Board</title>
+    <title>
+        <%= title %>
+    </title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 
-<body>
-    <h1 id="home-title">Mini Message Board</h1>
-    <a class="link-btn" href="/new">New Message</a>
-    <div id="messages-container">
-        <% messages.forEach((message)=> { %>
-            <div class="message-item">
-                <div class="msg-div">
-                    <p class="msg-txt">
-                        <%= message.text %>
-                    </p>
-                </div>
-                <p class="msg-user">
-                    User:
-                    <%= message.user %>
-                </p>
-                <p class="msg-date">
-                    Posted:
-                    <%= message.added %>
-                </p>
-                <a class="link-btn" href="/messages/<%= message.id %>">View Message</a>
+<body class="index-page">
+    <header class="header">
+        <h1 id="home-title" class="page-title">Mini Message Board</h1>
+        <a class="btn btn-new" href="/new">+ New Message</a>
+    </header>
+
+    <main class="messages-section">
+        <% if (messages && messages.length) { %>
+            <div id="messages-container" class="messages-container">
+                <% messages.forEach(message=> { %>
+                    <div class="message-card">
+                        <div class="message-header">
+                            <p class="msg-user">👤 <strong>
+                                    <%= message.username %>
+                                </strong></p>
+                            <p class="msg-date">
+                                🕒 <%= new Date(message.created_at).toLocaleString() %>
+                            </p>
+                        </div>
+                        <div class="message-body">
+                            <p class="msg-text">
+                                <%= message.message %>
+                            </p>
+                        </div>
+                        <div class="message-footer">
+                            <a class="btn btn-view" href="/messages/<%= message.id %>">View</a>
+                        </div>
+                    </div>
+                    <% }) %>
             </div>
-            <% }) %>
-    </div>
+            <% } else { %>
+                <p class="no-messages">No messages yet. Be the first to post one!</p>
+                <% } %>
+    </main>
 </body>
